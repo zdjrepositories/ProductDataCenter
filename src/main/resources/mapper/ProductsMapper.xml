@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namesapce:理解成实现类的全路径(包名+类名) -->
+
+<mapper namespace="ProductsMapper" >
+    <resultMap id="BaseResultMap" type="pojo.Products">
+        <id column="oid" jdbcType="BIGINT" property="oid" />
+        <id column="parent_Range_Id" jdbcType="BIGINT" property="parentRangeId" />
+        <result column="product_id" jdbcType="VARCHAR" property="productId" />
+        <result column="parentRange_Id" jdbcType="VARCHAR" property="parentRangeId" />
+        <result column="parent_Node_Oid" jdbcType="BIGINT" property="parentNodeOid" />
+        <result column="parent_Range_Oid" jdbcType="BIGINT" property="parentRangeOid" />
+        <result column="picture_Document_oid" jdbcType="BIGINT" property="pictureDocumentOid" />
+        <result column="short_Description" jdbcType="VARCHAR" property="shortDescription" />
+        <result column="documentOids" jdbcType="VARCHAR" property="documentoids" />
+        <result column="highligthedCharacteristics" jdbcType="VARCHAR" property="highligthedcharacteristics" />
+        <result column="commercialReference" jdbcType="VARCHAR" property="commercialreference" />
+        <result column="commercializedProduct_brand" jdbcType="VARCHAR" property="commercializedproductBrand" />
+        <result column="commercializedProduct_commstatus" jdbcType="VARCHAR" property="commercializedproductCommstatus" />
+        <result column="commercializedProduct_commercialized" jdbcType="BIT" property="commercializedproductCommercialized" />
+        <result column="ean_Code" jdbcType="VARCHAR" property="eanCode" />
+        <result column="green_Premium" jdbcType="TINYINT" property="greenPremium" />
+        <result column="global_Status" jdbcType="VARCHAR" property="globalStatus" />
+    </resultMap>
+    <select id="selectProducts" resultType="String">
+        select DISTINCT commercialreference from Products
+    </select>
+  <insert id="insertProducts" parameterType="pojo.Products">
+        insert into `Products` values (#{oid},#{productId},#{parentNodeOid},#{parentRangeId},#{parentRangeOid},#{pictureDocumentOid},#{shortDescription},#{longDescription},#{documentoids},#{highligthedcharacteristics},#{commercialreference},#{commercializedproductBrand},#{commercializedproductCommstatus},#{commercializedproductCommercialized},#{eanCode},#{greenPremium},#{globalStatus}) ON DUPLICATE KEY UPDATE oid=#{oid},product_id=#{productId},parent_Node_Oid=#{parentNodeOid},parent_Range_Id=#{parentRangeId},parent_Range_Oid=#{parentRangeOid},picture_Document_Oid=#{pictureDocumentOid},short_Description=#{shortDescription},long_Description=#{longDescription},documentoids=#{documentoids},highligthedcharacteristics=#{highligthedcharacteristics},commercialreference=#{commercialreference},commercialreference=#{commercialreference},commercializedproduct_Brand=#{commercializedproductBrand},commercializedproduct_Commstatus=#{commercializedproductCommstatus},commercializedproduct_Commercialized=#{commercializedproductCommercialized},ean_Code=#{eanCode},green_Premium=#{greenPremium},global_Status=#{globalStatus}
+    </insert>
+</mapper>

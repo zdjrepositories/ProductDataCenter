@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namesapce:理解成实现类的全路径(包名+类名) -->
+<mapper namespace="SummaryMapper" >
+    <insert id="insertSummary" parameterType="pojo.Summary">
+        insert summary  values (#{id},#{summary},#{date})ON DUPLICATE KEY UPDATE id=#{id},summary=#{summary},date=#{date}
+    </insert>
+    <select id="selectSummary" resultType="pojo.Summary" >
+		select id,date,summary from summary where id=#{id}
+	</select>
+</mapper>

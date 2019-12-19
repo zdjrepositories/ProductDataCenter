@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namesapce:理解成实现类的全路径(包名+类名) -->
+<mapper namespace="ProductlistbeanMapper" >
+    <resultMap id="BaseResultMap" type="pojo.Productlistbean">
+        <id column="oid" jdbcType="BIGINT" property="oid" />
+        <result column="count" jdbcType="INTEGER" property="count" />
+    </resultMap>
+  <insert id="insertProductlistbean" parameterType="pojo.Productlistbean">
+  insert into `Productlistbean` values (#{oid},#{count},#{products}) ON DUPLICATE KEY UPDATE oid=#{oid},count=#{count},products=#{products}
+          </insert>
+</mapper>

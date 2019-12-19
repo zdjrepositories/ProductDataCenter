@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductCharacterMapper">
+
+  <insert id="insertProductCharacter" parameterType="pojo.ProductCharacter">
+    insert into `ProductCharacter` values ( #{charValueOid},#{productId},#{categoryOid},#{categoryName},#{charCharid},#{charCharkey},#{charName},#{charOid},#{charDescription},#{charValueLockcase},#{charValueValueid},#{charValueValue},#{charValueCountryiso},#{charValueCountryname},#{charValueExterneturl},#{charValueLabelurl}) ON DUPLICATE KEY UPDATE    char_value_oid=#{charValueOid},product_id=#{productId},category_oid=#{categoryOid},category_name=#{categoryName},char_charId=#{charCharid},char_charKey=#{charCharkey},char_name=#{charName},char_oid=#{charOid},char_description=#{charDescription},char_value_lockCase=#{charValueLockcase},char_value_valueId=#{charValueValueid},char_value_value=#{charValueValue},char_value_countryIso=#{charValueCountryiso},char_value_countryName=#{charValueCountryname},char_value_externetUrl=#{charValueExterneturl},char_value_labelUrl=#{charValueLabelurl}
+  </insert>
+</mapper>
