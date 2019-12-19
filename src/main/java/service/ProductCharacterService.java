@@ -13,14 +13,12 @@ public class ProductCharacterService extends  DataCenterService {
     public void run (String id)  {
         System.out.println("开始获取ProductCharacter:"+id);
         getData(id);
-        isRepeat(id);
-        if (!repeat) {
+        if (!isRepeat(id)) {
             analyze();
         }
         upDataSummary(id);
         System.out.println("成功获取ProductCharacter:"+id+"  "+getTime());
     }
-
 
     /**
      * 获取数据
@@ -34,7 +32,7 @@ public class ProductCharacterService extends  DataCenterService {
 
     @Override
     public void analyze() {
-        if(data!= null && !"".equals("data") && data.indexOf("getProductDetailByCommercialRefResponse")>-1) {
+        if(data!= null  && data.indexOf("getProductDetailByCommercialRefResponse")>-1) {
             JSONObject object = JSONObject.parseObject(data);
             object = object.getJSONObject("getProductDetailByCommercialRefResponse").getJSONObject("ProductBean");
             productCharacter.setProductId(object.getString("@productId"));
@@ -61,7 +59,6 @@ public class ProductCharacterService extends  DataCenterService {
         }
     }
     public void analyzeChar(String str) {
-
         if(str!=null && !"".equals(str.toString())){
             if (str.indexOf("\"characteristic\"") < 6  && str.indexOf("\"characteristic\"")>-1 ) {
                 str =JSONObject.parseObject(str).getString("characteristic");
@@ -83,7 +80,7 @@ public class ProductCharacterService extends  DataCenterService {
         }
     }
     public void analyzeValues(String str) {
-        if(str!=null && !"".equals(str.toString())){
+        if(str!=null && !"".equals(str)){
             if (str.indexOf("\"values\"") < 6  && str.indexOf("\"values\"")>-1 ) {
                 str =JSONObject.parseObject(str).getString("values");
             }
@@ -99,7 +96,7 @@ public class ProductCharacterService extends  DataCenterService {
     }
 
     public void analyzeValue(String str) {
-        if(str!=null && !"".equals(str.toString())){
+        if(str!=null && !"".equals(str)){
             if (str.indexOf("\"value\"") < 6  && str.indexOf("\"value\"")>-1 ) {
                 str =JSONObject.parseObject(str).getString("value");
             }
@@ -110,6 +107,7 @@ public class ProductCharacterService extends  DataCenterService {
                 }
             }else {
                 JSONObject object = JSONObject.parseObject(str);
+                System.out.println("\t目前ProductCharacter：" + object.getLongValue("@oid"));
                 productCharacter.setCharValueOid(object.getLongValue("@oid"));
                 productCharacter.setCharValueValue(object.getString("@value"));
                 productCharacter.setCharValueCountryiso(object.getString("@countryIso"));
@@ -118,8 +116,6 @@ public class ProductCharacterService extends  DataCenterService {
                 productCharacter.setCharValueLabelurl(object.getString("labelUrl"));
                 productCharacter.setCharValueLockcase((byte)(("false".equals(object.getString("@lockCase"))?0:1)));
                 productCharacter.setCharValueValueid(object.getString("@valueId"));
-
-
                 SQLSession sqlSession = new SQLSession();
                 sqlSession.getSqlsession().insert("ProductCharacterMapper.insertProductCharacter", productCharacter);
                 sqlSession.getSqlsession().commit();

@@ -53,16 +53,18 @@ public abstract class DataCenterService {
     /**
      * 判断是否重复
      */
-    public void isRepeat(String id) {
+    public boolean isRepeat(String id) {
         if (data != null && !"".equals(data)) {
             SQLSession sqlSession = new SQLSession();
             Summary summary = sqlSession.getSqlsession().selectOne("SummaryMapper.selectSummary", id);
+            sqlSession.closeSession();
             if( summary!=null&& !"".equals(summary.toString())) {
                 if (MD5.getMD5(data).equals(summary.getSummary())) {
-                    repeat = true;
+                    //return true;
                 }
             }
         }
+        return false;
     }
     /**
      * 未重复保存摘要

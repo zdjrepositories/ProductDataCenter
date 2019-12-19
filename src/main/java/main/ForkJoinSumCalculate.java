@@ -37,7 +37,7 @@ public class ForkJoinSumCalculate extends RecursiveTask {
             Integer  middle=(start+end)/2;
            ForkJoinSumCalculate left=new ForkJoinSumCalculate(service,idlist,start,middle);
            left.fork();
-            ForkJoinSumCalculate right=new ForkJoinSumCalculate(service,idlist,middle+1,end);
+            ForkJoinSumCalculate right=new ForkJoinSumCalculate(service,idlist,middle,end);
             right.fork();
             left.join();
             right.join();

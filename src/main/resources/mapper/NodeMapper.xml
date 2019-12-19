@@ -5,9 +5,9 @@
 <!-- namesapce:理解成实现类的全路径(包名+类名) -->
 <mapper namespace="NodeMapper" >
     <select id="selectNode" resultType="String">
-        select DISTINCT oid from Node
+        select DISTINCT oid from Node where has_Product=1
     </select>
     <insert id="insertNode" parameterType="pojo.Node">
-        insert into `Node` values (#{oid},#{parent_oid},#{name},#{description},#{has_Configurable},#{has_Document},#{has_Product},#{has_RichText},#{commercial_References},#{sub_Nodes},#{visible}) ON DUPLICATE KEY UPDATE oid=#{oid},parent_oid=#{parent_oid},name=#{name},description=#{description},has_Configurable=#{has_Configurable},has_Document=#{has_Document},has_Product=#{has_Product},has_RichText=#{has_RichText},commercial_References=#{commercial_References},sub_Nodes=#{sub_Nodes},visible=#{visible}
+        insert into `Node` values (#{oid},#{parent_oid},#{name},#{description},#{has_Configurable},#{has_Document},#{has_Product},#{has_RichText},#{commercial_References},#{visible}) ON DUPLICATE KEY UPDATE oid=#{oid},parent_oid=#{parent_oid},name=#{name},description=#{description},has_Configurable=#{has_Configurable},has_Document=#{has_Document},has_Product=#{has_Product},has_RichText=#{has_RichText},commercial_References=#{commercial_References},visible=#{visible}
     </insert>
 </mapper>

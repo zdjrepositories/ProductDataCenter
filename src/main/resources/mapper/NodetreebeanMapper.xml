@@ -13,6 +13,6 @@
     -->
 
     <insert id="insertNodetreebean" parameterType="pojo.Nodetreebean">
-        insert into `Nodetreebean` values (#{oid},#{name},#{has_Configurable},#{has_Document},#{has_Product},#{has_RichText},#{commercial_References},#{node_oid},#{visible}) ON DUPLICATE KEY UPDATE oid=#{oid},name=#{name},has_Configurable=#{has_Configurable},has_Document=#{has_Document},has_Product=#{has_Product},has_RichText=#{has_RichText},commercial_References=#{commercial_References},node_oid=#{node_oid},visible=#{visible}
+        insert into `Nodetreebean` values (#{oid},#{name},#{has_Configurable},#{has_Document},#{has_Product},#{has_RichText},#{commercial_References},#{visible}) ON DUPLICATE KEY UPDATE oid=#{oid},name=#{name},has_Configurable=#{has_Configurable},has_Document=#{has_Document},has_Product=#{has_Product},has_RichText=#{has_RichText},commercial_References=#{commercial_References},visible=#{visible}
     </insert>
 </mapper>

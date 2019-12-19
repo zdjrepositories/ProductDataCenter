@@ -27,56 +27,56 @@ public class DataCenterControl {
     public void control() {
         long startTime = System.currentTimeMillis();   //获取开始时间
 
-        //获取Category
-        CategoryService categoryService = new CategoryService();
-        categoryService.run();
-
-        //获取Ranges
-        sqlSession=new SQLSession();
-        List categoryList = sqlSession.getSqlsession().selectList("CategoryIdMapper.selectCategoryId");
-        sqlSession.closeSession();
-
-        System.out.println(categoryList.size()+"\n\n\n\n");
-
-        confList = Conf.getConf().addCategoryList();
-        if (confList != null && confList.size() > 0) {
-            categoryList.addAll(confList);
-        }
-        forkJoin("Ranges",categoryList);
-
-        //获取Nodetreebean
-        sqlSession=new SQLSession();
-        List rangesList = sqlSession.getSqlsession().selectList("RangesMapper.selectRanges");
-        sqlSession.closeSession();
-
-        System.out.println(rangesList.size()+"\n\n\n\n");
-
-        confList = Conf.getConf().addRangesList();
-        if (confList != null && confList.size() > 0) {
-            rangesList.addAll(confList);
-        }
-        forkJoin("Nodetreebean",rangesList);
-
-        //获取Products
-        sqlSession=new SQLSession();
-        List nodetreebeanList = sqlSession.getSqlsession().selectList("NodeMapper.selectNode");
-        sqlSession.closeSession();
-
-        System.out.println(nodetreebeanList.size()+"\n\n\n\n\n");
-
-        confList = Conf.getConf().addNodetreebeanList();
-        if (confList != null && confList.size() > 0) {
-            nodetreebeanList.addAll(confList);
-        }
-        forkJoin("Products",nodetreebeanList);
-
+//        //获取Category
+//        CategoryService categoryService = new CategoryService();
+//        categoryService.run();
+//
+//        //获取Ranges
+//        sqlSession=new SQLSession();
+//        List categoryList = sqlSession.getSqlsession().selectList("CategoryIdMapper.selectCategoryId");
+//        sqlSession.closeSession();
+//
+//        System.out.println(categoryList.size()+"\n\n\n\n");
+//
+//        confList = Conf.getConf().addCategoryList();
+//        if (confList != null && confList.size() > 0) {
+//            categoryList.addAll(confList);
+//        }
+//        forkJoin("Ranges",categoryList);
+//
+//        //获取Nodetreebean
+//        sqlSession=new SQLSession();
+//        List rangesList = sqlSession.getSqlsession().selectList("RangesMapper.selectRanges");
+//        sqlSession.closeSession();
+//
+//        System.out.println("\n\n\n\n"+rangesList.size()+"\n\n\n\n");
+//
+//        confList = Conf.getConf().addRangesList();
+//        if (confList != null && confList.size() > 0) {
+//            rangesList.addAll(confList);
+//        }
+//        forkJoin("Nodetreebean",rangesList);
+//
+//        //获取Products
+//        sqlSession=new SQLSession();
+//        List nodetreebeanList = sqlSession.getSqlsession().selectList("NodeMapper.selectNode");
+//        sqlSession.closeSession();
+//
+//        System.out.println("\n\n\n\n"+nodetreebeanList.size()+"\n\n\n\n\n");
+//
+//        confList = Conf.getConf().addNodetreebeanList();
+//        if (confList != null && confList.size() > 0) {
+//            nodetreebeanList.addAll(confList);
+//        }
+//        forkJoin("Products",nodetreebeanList);
+//
 
         //获取ProductCharacter
         sqlSession=new SQLSession();
         List productsbeanList = sqlSession.getSqlsession().selectList("ProductsMapper.selectProducts");
         sqlSession.closeSession();
 
-        System.out.println(productsbeanList.size()+"\n\n\n\n");
+        System.out.println("\n\n\n\n"+productsbeanList.size()+"\n\n\n\n");
 
         confList = Conf.getConf().addProductsList();
         if (confList != null && confList.size() > 0) {

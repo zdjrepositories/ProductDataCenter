@@ -1,5 +1,6 @@
 package service;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import pojo.CategoryId;
@@ -19,16 +20,14 @@ public class CategoryService extends DataCenterService {
      * 执行流程
      */
     public void run() {
-        System.out.println("开始获取Category");
         getData();
-        isRepeat("Category");
-        if (!repeat) {
+        System.out.println("开始获取Category");
+        if (!isRepeat("Category")) {
             analyze();
         }
         upDataSummary("Category");
-        System.out.println("成功获取Category"+"  "+getTime());
+        System.out.println("成功获取Category" + "  " + getTime());
     }
-
 
     /**
      * 获取数据
@@ -45,16 +44,28 @@ public class CategoryService extends DataCenterService {
             e.printStackTrace();
         }
     }
+
     /**
      * 解析数据
      */
     @Override
     public void analyze() {
-        if (data != null && (!data.equals(""))) {
+        if (data != null && data.indexOf("getFilterResponse") > -1) {
             JSONObject object = JSONObject.parseObject(data);
-            JSONArray respObjs = object.getJSONObject("getFilterResponse").getJSONArray("return");
-            for (int i = 0; i < respObjs.size(); i++) {
-                object = respObjs.getJSONObject(i);
+            String str = object.getJSONObject("getFilterResponse").getString("return");
+            analyzeCategory(str);
+        }
+    }
+
+    public void analyzeCategory(String str) {
+        if (isArray(str)) {
+            JSONArray jsonArray = JSON.parseArray(str);
+            for (int i = 0; i < jsonArray.size(); i++) {
+                analyzeCategory(jsonArray.get(i).toString());
+            }
+        } else {
+            if (str.indexOf("valueId") > -1 && str.indexOf("valueId") < 5) {
+                JSONObject object = JSONObject.parseObject(str);
                 categoryId = new CategoryId();
                 categoryId.setCategory_id(object.getLongValue("valueId"));
                 categoryId.setCount(object.getInteger("count"));
@@ -69,3 +80,4 @@ public class CategoryService extends DataCenterService {
         }
     }
 }
+

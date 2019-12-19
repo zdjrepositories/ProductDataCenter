@@ -24,8 +24,7 @@ public class ProductsService extends DataCenterService {
     public void run(String id) {
         System.out.println("开始获取Products:"+id);
         getData(id);
-        isRepeat(id);
-        if (!repeat) {
+        if (!isRepeat(id)) {
             analyze();
         }
         upDataSummary(id);
@@ -52,7 +51,7 @@ public class ProductsService extends DataCenterService {
      */
     @Override
     public void analyze() {
-        if (data != null && (!data.equals("")) && data.indexOf("getProductListResponse") > -1) {
+        if (data != null &&  data.indexOf("getProductListResponse") > -1) {
             JSONObject object = JSONObject.parseObject(data);
             object = object.getJSONObject("getProductListResponse").getJSONObject("ProductListBean");
             productlistbean.setCount(object.getInteger("@count"));
@@ -73,14 +72,13 @@ public class ProductsService extends DataCenterService {
                 str = JSONObject.parseObject(str).getString("product");
             }
             if (isArray(str)) {
-                // System.out.println("数组"+str.toString());
-                JSONArray respObjs = JSONObject.parseArray(str);
-                for (int i = 0; i < respObjs.size(); i++) {
-                    //System.out.println("子节点"+respObjs.get(i).toString());
-                    analyzeProduct(respObjs.get(i).toString());
+                JSONArray jsonArray= JSONObject.parseArray(str);
+                for (int i = 0; i < jsonArray.size(); i++) {
+                    analyzeProduct(jsonArray.get(i).toString());
                 }
             } else {
                 JSONObject object = JSONObject.parseObject(str);
+                System.out.println("\t当前Products：" + object.getString("@productId"));
                 products.setOid(object.getLongValue("@oid"));
                 products.setProductId(object.getString("@productId"));
                 products.setParentNodeOid(object.getLongValue("parentNodeOid"));
@@ -89,11 +87,11 @@ public class ProductsService extends DataCenterService {
                 products.setPictureDocumentOid(object.getLongValue("pictureDocumentOid"));
                 products.setShortDescription(object.getString("shortDescription"));
                 products.setDocumentoids(object.getString("documentoids"));
-                products.setHighligthedcharacteristics(object.getString("highligthedcharacteristics"));
+                products.setHighligthedcharacteristics(object.getString("highlightedCharacteristics"));
                 products.setCommercialreference(object.getString("commercialReference"));
                 products.setCommercializedproductBrand(object.getString("commercializedproductBrand"));
                 products.setCommercializedproductCommstatus(object.getString("commercializedproductCommstatus"));
-                products.setCommercializedproductCommercialized(object.getBooleanValue("commercializedproductCommercialized"));//bool
+                products.setCommercializedproductCommercialized((byte)(object.getBooleanValue("commercializedproductCommercialized")?1:0));//bool
                 products.setEanCode(object.getString("eanCode"));
                 products.setGreenPremium(object.getByte("greenPremium"));
                 products.setGlobalStatus(object.getString("globalStatus"));

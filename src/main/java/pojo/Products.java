@@ -14,7 +14,7 @@ public class Products  {
     private String commercialreference;
     private String commercializedproductBrand;
     private String commercializedproductCommstatus;
-    private Boolean commercializedproductCommercialized;
+    private Byte commercializedproductCommercialized;
     private String eanCode;
     private Byte greenPremium;
     private String globalStatus;
@@ -146,11 +146,11 @@ public class Products  {
         this.commercializedproductCommstatus = commercializedproductCommstatus;
     }
 
-    public Boolean getCommercializedproductCommercialized() {
+    public Byte getCommercializedproductCommercialized() {
         return commercializedproductCommercialized;
     }
 
-    public void setCommercializedproductCommercialized(Boolean commercializedproductCommercialized) {
+    public void setCommercializedproductCommercialized(Byte commercializedproductCommercialized) {
         this.commercializedproductCommercialized = commercializedproductCommercialized;
     }
 
