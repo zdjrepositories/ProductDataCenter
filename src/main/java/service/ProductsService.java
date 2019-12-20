@@ -23,20 +23,24 @@ public class ProductsService extends DataCenterService {
 
     public void run(String id) {
         System.out.println("开始获取Products:"+id);
-        getData(id);
-        if (!isRepeat(id)) {
-            analyze();
+        for (int i = 0; i <10 ; i++) {
+            getData(id,i*100);
+            if (!isRepeat(id)) {
+                analyze();
+            }
+            upDataSummary(id);
         }
-        upDataSummary(id);
+
+
         System.out.println("成功获取Products:"+id+"  "+getTime());
     }
 
 
-    @Override
-    public void getData(String id) {
+
+    public void getData(String id,int num) {
         productlistbean.setOid(Long.parseLong(id));
         String url = Conf.getConf().getProducts();
-        String body = "{\"getProductList\": { \"query\": { \"queryItems\": { \"@name\": \"nodeOid\",\"@value\": \"" + id + "\" }},\"firstResult\": \"0\", \"maxResult\": \"1000\" }}";
+        String body = "{\"getProductList\": { \"query\": { \"queryItems\": { \"@name\": \"nodeOid\",\"@value\": \"" + id + "\" }},\"firstResult\": \""+num+"\", \"maxResult\": \"100\" }}";
         try {
             data = HttpClient.doPost(url, null, body);
         } catch (UnsupportedEncodingException e) {
