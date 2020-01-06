@@ -2,30 +2,24 @@ package main;
 
 
 import service.CategoryService;
-import service.NodetreebeanService;
-import service.ProductCharacterService;
-import service.ProductsService;
-import service.RangesService;
 import util.Conf;
+import util.Mail;
 import util.SQLSession;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 
 public class DataCenterControl {
     List confList;
     //获取数据连接
-    SQLSession sqlSession;
+     SQLSession  sqlSession;
 
 
 
-    public void control() {
-        long startTime = System.currentTimeMillis();   //获取开始时间
+    public  void  control() {
+         long startTime = System.currentTimeMillis();   //获取开始时间
 
         //获取Category
         CategoryService categoryService = new CategoryService();
@@ -47,6 +41,7 @@ public class DataCenterControl {
         //获取Nodetreebean
         sqlSession=new SQLSession();
         List rangesList = sqlSession.getSqlsession().selectList("RangesMapper.selectRanges");
+
         sqlSession.closeSession();
 
         System.out.println("\n\n\n\n"+rangesList.size()+"\n\n\n\n");
@@ -59,14 +54,14 @@ public class DataCenterControl {
 
         //获取Products
         sqlSession=new SQLSession();
-        List nodetreebeanList = sqlSession.getSqlsession().selectList("NodeMapper.selectNode");
-        sqlSession.closeSession();
+        List nodetreebeanList =sqlSession.getSqlsession().selectList("NodeMapper.selectNode");
+       sqlSession.closeSession();
 
         System.out.println("\n\n\n\n"+nodetreebeanList.size()+"\n\n\n\n\n");
 
         confList = Conf.getConf().addNodetreebeanList();
         if (confList != null && confList.size() > 0) {
-            nodetreebeanList.addAll(confList);
+                nodetreebeanList.addAll(confList);
         }
         forkJoin("Products",nodetreebeanList);
 
@@ -98,6 +93,7 @@ public class DataCenterControl {
     }
 
     public void sendMail(Long startTime) {
+
         SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss ");
         StringBuilder content = new StringBuilder();
         content.append("您好：\n    数据中心于 ");
@@ -119,5 +115,6 @@ public class DataCenterControl {
             content.append(second+"秒");
         }
         System.out.println(content.toString());
+        new Mail().sendMail(content.toString());
     }
 }

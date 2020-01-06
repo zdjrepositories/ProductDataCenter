@@ -38,7 +38,7 @@ public class Conf {
             properties.load(inputStreamReader);
         } catch (IOException e) {
             Log4j.getLog4j().error( "配置文件错误："+e);
-            Mail.sendMail("数据中心项目运行已停止/n"+"配置文件错误："+e);
+            new Mail().sendMail("数据中心项目运行已停止/n"+"配置文件错误："+e);
             e.printStackTrace();
         }
         this.cycle=Integer.parseInt(properties.getProperty("cycle"));

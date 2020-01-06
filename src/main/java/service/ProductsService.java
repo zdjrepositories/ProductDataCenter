@@ -23,12 +23,9 @@ public class ProductsService extends DataCenterService {
 
     public void run(String id) {
         System.out.println("开始获取Products:"+id);
-        for (int i = 0; i <10 ; i++) {
+        for (int i = 0; i <30 ; i++) {
             getData(id,i*100);
-            if (!isRepeat(id)) {
-                analyze();
-            }
-            upDataSummary(id);
+            analyze();
         }
 
 

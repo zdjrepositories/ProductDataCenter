@@ -19,7 +19,7 @@ public class SQLSession {
                 factory = new SqlSessionFactoryBuilder().build(is);
                 session = factory.openSession();
             } catch (IOException e) {
-                Mail.sendMail("数据中心项目f发生异常\r\n数据库配置文件异常："+e.toString());
+                new Mail().sendMail("数据中心项目f发生异常\r\n数据库配置文件异常："+e.toString());
                 Log4j.getLog4j().error("数据库配置文件异常："+e.toString());
                 e.printStackTrace();
             }

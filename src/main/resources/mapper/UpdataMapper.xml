@@ -7,7 +7,6 @@
     <!-- id:方法名
         parameterType:定义参数类型
         resultType:返回值类型.
-
         如果方法返回值是list,在resultType中写List的泛型,因为mybatis
         对jdbc封装,一行一行读取数据
     -->

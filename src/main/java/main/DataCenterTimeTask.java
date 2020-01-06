@@ -13,7 +13,5 @@ public class DataCenterTimeTask extends TimerTask {
             DataCenterControl dataCenterControl=new DataCenterControl();
             dataCenterControl.control();
         }catch (Exception e){}
-
-
     }
 }

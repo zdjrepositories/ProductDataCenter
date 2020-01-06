@@ -60,7 +60,7 @@ public abstract class DataCenterService {
             sqlSession.closeSession();
             if( summary!=null&& !"".equals(summary.toString())) {
                 if (MD5.getMD5(data).equals(summary.getSummary())) {
-                    //return true;
+                    return true;
                 }
             }
         }
