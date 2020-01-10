@@ -23,8 +23,12 @@ public class ProductsService extends DataCenterService {
 
     public void run(String id) {
         System.out.println("开始获取Products:"+id);
-        for (int i = 0; i <30 ; i++) {
-            getData(id,i*100);
+        for (int i = 0; i <2000 ; i++) {
+            if(getData(id,i*100)==0){
+                System.out.println("循环："+i);
+                break;
+
+            }
             analyze();
         }
 
@@ -34,16 +38,20 @@ public class ProductsService extends DataCenterService {
 
 
 
-    public void getData(String id,int num) {
+    public int getData(String id,int num) {
         productlistbean.setOid(Long.parseLong(id));
         String url = Conf.getConf().getProducts();
         String body = "{\"getProductList\": { \"query\": { \"queryItems\": { \"@name\": \"nodeOid\",\"@value\": \"" + id + "\" }},\"firstResult\": \""+num+"\", \"maxResult\": \"100\" }}";
         try {
+            if(HttpClient.doPost(url, null, body).equals(data)){
+                return 0;
+            }
             data = HttpClient.doPost(url, null, body);
         } catch (UnsupportedEncodingException e) {
             Log4j.getLog4j().error("发生异常：" + e.toString());
             e.printStackTrace();
         }
+        return 1;
     }
 
 
