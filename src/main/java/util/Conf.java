@@ -18,6 +18,7 @@ public class Conf {
     private String nodetreebean;
     private String products;
     private String productCharacter;
+    private String document;
     private String addCategory;
     private String addRanges;
     private String addNodetreebean;
@@ -48,6 +49,7 @@ public class Conf {
         this.nodetreebean=properties.getProperty("nodetreebean");
         this.products=properties.getProperty("products");
         this.productCharacter=properties.getProperty("productCharacter");
+        this.document=properties.getProperty("document");
         this.addCategory=properties.getProperty("addCategory");
         this.addRanges=properties.getProperty("addRanges");
         this.addNodetreebean=properties.getProperty("addNodetreebean");
@@ -83,14 +85,23 @@ public class Conf {
                 ", nodetreebean='" + nodetreebean + '\'' +
                 ", products='" + products + '\'' +
                 ", productCharacter='" + productCharacter + '\'' +
+                ", document='" + document + '\'' +
                 ", addCategory='" + addCategory + '\'' +
                 ", addRanges='" + addRanges + '\'' +
                 ", addNodetreebean='" + addNodetreebean + '\'' +
                 ", addProducts='" + addProducts + '\'' +
                 ", addProductCharacter='" + addProductCharacter + '\'' +
-                ", tokenTime='" + tokenTime + '\'' +
-                ", threadNum='" + threadNum + '\'' +
+                ", tokenTime=" + tokenTime +
+                ", threadNum=" + threadNum +
                 '}';
+    }
+
+    public String getDocument() {
+        return document;
+    }
+
+    public void setDocument(String document) {
+        this.document = document;
     }
 
     public void setCycle(Integer cycle) {

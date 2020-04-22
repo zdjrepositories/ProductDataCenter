@@ -27,9 +27,11 @@ public class Token {
     static Long interval=0L;
     static Integer tokenTime;
     public static void setToken() {
-        if( System.currentTimeMillis()/(1000*60*getTokenTime())!=interval || interval==0){
-            interval=System.currentTimeMillis()/(1000*60*getTokenTime());
-            paramMap.put("grant_type","client_credentials");
+
+        synchronized (Token.class){
+        if( System.currentTimeMillis()/(1000*60*getTokenTime())!=interval || interval==0) {
+            interval = System.currentTimeMillis() / (1000 * 60 * getTokenTime());
+            paramMap.put("grant_type", "client_credentials");
             CloseableHttpClient httpClient = null;
             CloseableHttpResponse httpResponse = null;
             String result = "";
@@ -38,7 +40,7 @@ public class Token {
             // 创建httpPost远程连接实例
             HttpPost httpPost = new HttpPost(url);
             // 配置请求参数实例
-            RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(35000)// 设置连接主机服务超时时间
+            RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(10000)// 设置连接主机服务超时时间
                     .setConnectionRequestTimeout(35000)// 设置连接请求超时时间
                     .setSocketTimeout(60000)// 设置读取数据连接超时时间
                     .build();
@@ -95,12 +97,12 @@ public class Token {
                     }
                 }
             }
-            int index=result.indexOf("\"access_token\":\"")+16;
-            String str=result.substring(index,index+28);
-            Log4j.getLog4j().debug("token获取成功："+str);
-            System.out.println("token获取成功："+str);
-            token=str;
-
+            int index = result.indexOf("\"access_token\":\"") + 16;
+            String str = result.substring(index, index + 28);
+            Log4j.getLog4j().debug("token获取成功：" + str);
+            System.out.println("token获取成功：" + str);
+            token = str;
+        }
         }
     }
     public static Integer getTokenTime(){
@@ -111,7 +113,9 @@ public class Token {
         return tokenTime;
     }
     public static  String getToken() {
-        Token.setToken();
+        if ( System.currentTimeMillis()/(1000*60*getTokenTime())!=interval || interval==0) {
+            Token.setToken();
+        }
         return token ;
     }
 }

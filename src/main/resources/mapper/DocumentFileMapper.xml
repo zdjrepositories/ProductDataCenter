@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namesapce:理解成实现类的全路径(包名+类名) -->
+<mapper namespace="DocumentFileMapper" >
+    <!-- id:方法名
+        parameterType:定义参数类型
+        resultType:返回值类型.
+        如果方法返回值是list,在resultType中写List的泛型,因为mybatis
+        对jdbc封装,一行一行读取数据
+    -->
+    <select id="selectDocumentFile" resultType="String">
+        select DISTINCT document_file_id from document_file
+    </select>
+    <insert id="insertDocumentFile" parameterType="pojo.DocumentFile">
+        insert into `document_file` values (#{document_file_id},#{doc_id},#{filename},#{extension},#{size}) ON DUPLICATE KEY UPDATE document_file_id=#{document_file_id},doc_id=#{doc_id},filename=#{filename},extension=#{extension},size=#{size}
+    </insert>
+</mapper>

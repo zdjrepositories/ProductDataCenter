@@ -3,14 +3,19 @@ package util;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.Map;
 
+import org.apache.commons.codec.binary.Hex;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -83,10 +88,10 @@ public class HttpClient{
         // 设置请求头信息，鉴权
         httpPost.setHeader("Authorization", "Bearer "+Token.getToken());
         httpPost.setHeader("Accept", "application/json");
-        httpPost.addHeader("Content-Type","application/json");
-        RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(700000)// 设置连接主机服务超时时间
-                .setConnectionRequestTimeout(700000)// 设置连接请求超时时间
-                .setSocketTimeout(1200000)// 设置读取数据连接超时时间
+        httpPost.addHeader("Content-Type","application/xml");
+        RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(4000)// 设置连接主机服务超时时间
+                .setConnectionRequestTimeout(4000)// 设置连接请求超时时间
+                .setSocketTimeout(60000)// 设置读取数据连接超时时间
                 .build();
         // 为httpPost实例设置配置
         httpPost.setConfig(requestConfig);
@@ -127,4 +132,5 @@ public class HttpClient{
         }
         return result;
     }
+
 }

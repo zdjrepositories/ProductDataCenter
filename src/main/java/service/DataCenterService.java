@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 数据获取及处理
  */
-public abstract class DataCenterService {
+public class DataCenterService {
     //数据存储
     protected String data;
     //是否重复

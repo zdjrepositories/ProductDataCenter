@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namesapce:理解成实现类的全路径(包名+类名) -->
+<mapper namespace="DocumentMapper" >
+    <!-- id:方法名
+        parameterType:定义参数类型
+        resultType:返回值类型.
+        如果方法返回值是list,在resultType中写List的泛型,因为mybatis
+        对jdbc封装,一行一行读取数据
+    -->
+    <select id="selectDocument" resultType="String">
+        select DISTINCT document_id from Document
+    </select>
+    <insert id="insertDocument" parameterType="pojo.Document">
+        insert into `document` values (#{document_id},#{author},#{attributeLists},#{attributes},#{audience_id},#{audience_translation},#{createDate},#{desciption},#{range_id},#{docOwner},#{documentDate},#{doctype_englishlabel},#{doctype_id},#{doctype_name},#{doctype_translation},#{expireDate},#{files_extension},#{files_filename},#{files_id },#{files_size},#{keywords},#{lastModificationDate},#{locales_isoCountry},#{locales_isoLanguage},#{numberOfPage},#{reference},#{title},#{version},#{flipFlopGenerated},#{description}) ON DUPLICATE KEY UPDATE document_id=#{document_id},author=#{author},attributeList=#{attributeLists},attributes=#{attributes},audience_id=#{audience_id},audience_translation=#{audience_translation},createDate=#{createDate},desciption=#{desciption},range_id=#{range_id},docOwner=#{docOwner},documentDate=#{documentDate},doctype_englishlabel=#{doctype_englishlabel},doctype_id=#{doctype_id},doctype_name=#{doctype_name},doctype_translation=#{doctype_translation},expireDate=#{expireDate},files_extension=#{files_extension},files_filename=#{files_filename},files_id=#{files_id},files_size=#{files_size},keywords=#{keywords},lastModificationDate=#{lastModificationDate},locales_isoCountry=#{locales_isoCountry},locales_isoLanguage=#{locales_isoLanguage},numberOfPage=#{numberOfPage},reference=#{reference},title=#{title},version=#{version},flipFlopGenerated=#{flipFlopGenerated},description=#{description}
+    </insert>
+</mapper>
